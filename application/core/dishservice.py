@@ -86,7 +86,12 @@ def update_dish(dish_id, name, name_uz,  description, description_uz, image, pri
     dish.price = price
     dish.show_usd = show_usd
     dish.category_id = category_id
-    if image and image.filename != '':
+    if type(image) is str and image != '':
+        if dish.image_path:
+            files.remove_file(dish.image_path)
+        file_path = os.path.join(Config.UPLOAD_DIRECTORY, image)
+        dish.image_path = file_path
+    elif image and image.filename != '':
         if dish.image_path:
             files.remove_file(dish.image_path)
         file_path = os.path.join(Config.UPLOAD_DIRECTORY, image.filename)

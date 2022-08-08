@@ -79,4 +79,9 @@ def _get_or_create_dish(product_name, product_name_uz, description, description_
     product = dishservice.get_dish_by_name(product_name, 'ru', category)
     if not product:
         dishservice.create_dish(product_name, product_name_uz, description, description_uz, str(image), price, category.id, False)
+    else:
+        product = dishservice.update_dish(
+            product.id, product_name, product_name_uz, description, description_uz, 
+            image, price, category.id, product.show_usd
+        )
     return product
